@@ -13,7 +13,7 @@ for (let i = 0; i < input.length; i++) {
         if (thing) {
             document.write(
                 "input: "+ thing[0] + "+" + thing [1]
-                + "product: "+thing[2])
+                + "\n\r" + "product: "+thing[2])
         }
     }
 }
