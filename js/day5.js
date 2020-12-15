@@ -1,0 +1,1 @@
+let tickets = input.split("\n");
