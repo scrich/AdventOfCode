@@ -23,6 +23,7 @@ let minSeatID = seats.reduce(function(a,b) {
     return Math.min(a,b);
 });
 
+document.write("<h2>Max Seat ID</h2>");
 document.write(maxSeatID);
 
 // sum of all seats
