@@ -1,0 +1,20 @@
+0   departure time
+1   arrival station
+2   departure station
+3   route
+4   departure track
+5   arrival track
+6   arrival location
+7   departure location
+8   price
+9   departure platform
+10  row
+11  train
+12  zone
+13  type
+14  duration
+15  arrival platform
+16  class
+17  seat
+18  departure date
+19  wagon
