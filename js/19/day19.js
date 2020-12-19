@@ -3,11 +3,6 @@ const DEBUG = true;
 message = "ab";
 let rules = [];
 
-// inputrules = `0: 1 2
-// 1: "a"
-// 2: 1 3 | 3 1
-// 3: "b"`;
-
 // prepare the rules
 inputrules = inputrules.split(/\n/);
 DEBUG && console.log(inputrules);
@@ -23,13 +18,56 @@ for (let input of inputrules) {
     DEBUG && console.log(rule);
     rules[id] = rule;
 }
+DEBUG && console.log("## rules:"), console.log(rules) ;
+// rules are now in an array where array index is the rule number
 
-// for (let i=0; i < rules.length; i++) {
-//     let re = new RegExp("^"+i+": ");
-//     DEBUG && console.log(re);
-//     rules[i] = rules[i].replace(re,"");
-// }
+// prepare the messages
+messages = messages.split(/\n/);
+DEBUG && console.log("## messages:"), console.log(messages) ;
 
-DEBUG && console.log(rules) ;
-// rules are now in an array where
+// now process the messages according to the rules
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
+
+// build the regex
+// recursive function
+let reTest = new RegExp;
+reTest = buildRegex(0);
+
+function buildRegex(rulenum) {
+    DEBUG && console.log("called buildRegex with rulenum "+rulenum);
+    let re = new RegExp;
+    let reStr; // string for compiling the regex
+
+    const regexStr = /^"\w"$/;
+    const regexNums = /^[\d\s]+$/;          // digits all the way through
+    const regexOr = /^[\d\s]+\|[\d\s]+$/;   // digits and an 'or' pipe
+    
+    // look up rule
+    // test what kind of rule it is - either numbers or text in quotes
+    // if text in quotes, return the value
+
+    if (regexStr.test(rules[rulenum])) {
+        re = new RegExp(rules[rulenum].slice(1,-1));
+    } 
+    
+    if (regexNums.test(rules[rulenum])) {
+        // it's a string of numbers we have to look up
+        // without 'or'
+        // re_con = new RegExp(re_a.source + re_b.source)
+
+        let subrules = rules[rulenum].split(" ");
+        DEBUG && console.log(subrules);
+
+        for (let subrule of subrules) {
+            re = new RegExp(re.source + buildRegex(subrule).source);
+        }
+    }
+
+    DEBUG && console.log ("buildRegex returning " +re);
+    return re;
+}
+
+
+// run the test
 
