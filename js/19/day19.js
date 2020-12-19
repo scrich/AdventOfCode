@@ -18,12 +18,12 @@ for (let input of inputrules) {
     DEBUG && console.log(rule);
     rules[id] = rule;
 }
-DEBUG && console.log("## rules:"), console.log(rules) ;
+DEBUG && console.log("## rules:"), console.log(rules);
 // rules are now in an array where array index is the rule number
 
 // prepare the messages
 messages = messages.split(/\n/);
-DEBUG && console.log("## messages:"), console.log(messages) ;
+DEBUG && console.log("## messages:"), console.log(messages);
 
 // now process the messages according to the rules
 
@@ -33,38 +33,63 @@ DEBUG && console.log("## messages:"), console.log(messages) ;
 // recursive function
 let reTest = new RegExp;
 reTest = buildRegex(0);
+reTest = new RegExp(/^/.source + reTest.source + /$/.source)
+
+// now test the messages
+
+let success = 0;
+
+for (let message of messages) {
+    if (reTest.test(message)) {
+        success ++;
+        DEBUG && console.log ("true: " + message);
+    }
+}
+
+document.write("<h2>Successful messages</h2>");
+document.write(success);
+
+DEBUG && console.log("ReTest " + reTest);
 
 function buildRegex(rulenum) {
-    DEBUG && console.log("called buildRegex with rulenum "+rulenum);
+    DEBUG && console.log("called buildRegex with rulenum " + rulenum);
     let re = new RegExp;
     let reStr; // string for compiling the regex
 
     const regexStr = /^"\w"$/;
     const regexNums = /^[\d\s]+$/;          // digits all the way through
-    const regexOr = /^[\d\s]+\|[\d\s]+$/;   // digits and an 'or' pipe
-    
+    const regexOr = /^[\d\s]+\|*[\d\s]+$/;   // digits and an 'or' pipe
+
     // look up rule
     // test what kind of rule it is - either numbers or text in quotes
     // if text in quotes, return the value
 
     if (regexStr.test(rules[rulenum])) {
-        re = new RegExp(rules[rulenum].slice(1,-1));
-    } 
-    
-    if (regexNums.test(rules[rulenum])) {
+        re = new RegExp(rules[rulenum].slice(1, -1));
+    }
+
+    if (regexOr.test(rules[rulenum])) {
         // it's a string of numbers we have to look up
         // without 'or'
         // re_con = new RegExp(re_a.source + re_b.source)
 
         let subrules = rules[rulenum].split(" ");
-        DEBUG && console.log(subrules);
+        DEBUG && console.log("subrules" + subrules);
 
         for (let subrule of subrules) {
-            re = new RegExp(re.source + buildRegex(subrule).source);
+            if (subrule == "|") {
+                re = new RegExp(re.source + "|");
+            } else {
+                if (re.source == "(?:)") {
+                    re = new RegExp(buildRegex(subrule).source);
+                } else {
+                    re = new RegExp(re.source + buildRegex(subrule).source);
+                }
+            }
         }
     }
 
-    DEBUG && console.log ("buildRegex returning " +re);
+    DEBUG && console.log("buildRegex (" + rulenum + ") returning " + re);
     return re;
 }
 
