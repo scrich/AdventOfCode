@@ -5,7 +5,9 @@ inputrules=`0: 1 2
 
 messages=`aab
 aba
-aab
+abab
+abba
+aabb
 bba
 baa
 bab`;
