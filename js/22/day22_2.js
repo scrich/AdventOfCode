@@ -30,7 +30,7 @@ function game(player1, player2) {
 
         // check for previous hand
 
-        let handcheck = player1.join() + player2.join();
+        let handcheck = player1.join() +","+ player2.join();
         if (gamehistory.includes(handcheck)) {
             // player 1 wins instantly
             round++;
@@ -68,23 +68,24 @@ function game(player1, player2) {
         */
 
         // check for subgame
-        console.log("check subgame");
-        console.log (p1);
-        console.log(player1);
-        console.log(p2);
-        console.log(player2);
+        // console.log("check subgame");
+        // console.log (p1);
+        // console.log(player1);
+        // console.log(p2);
+        // console.log(player2);
 
-        if (p1 >= player1.length && p2 >= player2.length) {
+        if ((player1.length >= p1) && (player2.length >= p2)) {
             console.log("subgame!");
+            console.log("p1: "+ p1 + ", p2: " + p2);
             let roundwinner = game(player1.slice(0, p1), player2.slice(0, p2));
             if (roundwinner = "player1") {
                 player1.push(p1);
                 player1.push(p2);
-                console.log("Player 1 wins the round!")
+                console.log("Player 1 wins round " + round + " of game " + gamecount);
             } else {
                 player2.push(p2);
                 player2.push(p1);
-                console.log("Player 2 wins the round!")
+                console.log("Player 2 wins round " + round + " of game " + gamecount);
             }
         } else {
 
@@ -92,11 +93,11 @@ function game(player1, player2) {
                 // give the cards to p1
                 player1.push(p1);
                 player1.push(p2);
-                console.log("Player 1 wins the round!")
+                console.log("Player 1 wins round " + round + " of game " + gamecount);
             } else {
                 player2.push(p2);
                 player2.push(p1);
-                console.log("Player 2 wins the round!")
+                console.log("Player 2 wins round " + round + " of game " + gamecount);
             }
         }
     }
