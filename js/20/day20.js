@@ -3,6 +3,8 @@ let puzzle = [];
 
 function setup() {
     createCanvas(532, 532);
+
+    
     for (piece of input) {
         let bits = piece.split(/:\n/);
         puzzle.push(new PuzzlePiece(bits[0], bits[1]));
