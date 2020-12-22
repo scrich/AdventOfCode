@@ -1,0 +1,8 @@
+input=`Player 1:
+43
+19
+
+Player 2:
+2
+29
+14`;
