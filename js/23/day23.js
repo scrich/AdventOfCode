@@ -1,36 +1,40 @@
 const DEBUG = true;
 
-let cups = "389125467";
+// let cups = "389125467";
+let cups = "487912365";
 cups = cups.split("");
 cups = cups.map(function (cup) { return parseInt(cup) });
-
-
-
-
 // now we have an array
+
 let current = 0; // numbered from the start of the string.
 
 // let's always replace the start of the array, 
 // then spin in, never go round the edge
 
-for (let i = 1; i < 11; i++) {
+for (let i = 1; i < 101; i++) {
     DEBUG && console.log("-- Move " + i + " --");
     current = move(current);
 }
 DEBUG && console.log("Finished: cups " + cups);
+while (cups[0] != 1) {
+    arrShiftLeft(cups);
+}
+console.log("Final position: " + cups.join(""));
 
 function move(current) {
     // shift to put current at the start
-
-    // code
-
-
-    // ...
-
-    DEBUG && console.log("cups " + cups);
-    DEBUG && console.log("current " + current);
+    // take stock of which cup is current
     let currentlabel = (cups[current])
     DEBUG && console.log("currentlabel " + currentlabel);
+    // code
+    
+    arrShiftLeft(cups, current);
+    current = cups.indexOf(currentlabel);
+
+    DEBUG && console.log("currentlabel " + currentlabel);
+    DEBUG && console.log("cups " + cups);
+    DEBUG && console.log("current " + current);
+    
     /*
     The crab picks up the three cups 
     that are immediately clockwise of the current cup. 
@@ -52,8 +56,6 @@ function move(current) {
      * the value goes below the lowest value on any cup's label, 
      * it wraps around to the highest value on any cup's label instead.
      */
-
-    
 
     let lowcup = Math.min(...cups);
     DEBUG && console.log("lowcup " + lowcup);
@@ -107,9 +109,8 @@ function move(current) {
     } else {
         current = currentpos+1;
     }
-
+    DEBUG && console.log("new current is "+current+" value "+cups[current]);
     return current;
-
 }
 
 
@@ -123,67 +124,7 @@ function getNext(arr, value) {
     } else {
         nextcurrent = currentpos+1;
     }
-    return nextcurrent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    return nextcurrent;    
 }
 
 function arrShiftLeft(arr, times = 1) {
