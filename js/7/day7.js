@@ -10,6 +10,8 @@ for (let phrase of input) {
     createBagNode(phrase);
 }
 
+
+
 function createBagNode(phrase) {
     // split the phrase up
     // work out the value
