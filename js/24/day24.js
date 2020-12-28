@@ -16,7 +16,7 @@ function setup() {
     createCanvas(800, 800);
     angleMode(DEGREES);
     spacing = 1 / (sin(30));
-    current = [0,0];
+    current = [0, 0];
     flipped = [];
 
 }
@@ -41,22 +41,22 @@ function draw() {
     // console.log(routes);
 
     for (let rawroute of routes) {
-    
-    let route = parseRoute(rawroute);
-    // let route = ["nw","w","sw","e","e"];
-    current = [0,0];
-    drawHex(current,scale);
-    for (step of route) {
-    next = move(step, current);
-    drawHex(next,scale);
-    current = next;
-    }
-    fliptile(current, scale);
-    flipped.push(current);
 
-}
-    let blacks = Array.from(floormap.values()).filter(a => a==0);
-    p = createElement(p,"Black tiles: "+blacks.length);
+        let route = parseRoute(rawroute);
+        // let route = ["nw","w","sw","e","e"];
+        current = [0, 0];
+        drawHex(current, scale);
+        for (step of route) {
+            next = move(step, current);
+            drawHex(next, scale);
+            current = next;
+        }
+        fliptile(current, scale);
+        flipped.push(current);
+
+    }
+    let blacks = Array.from(floormap.values()).filter(a => a == 0);
+    p = createElement(p, "Black tiles: " + blacks.length);
     // document.write(blacks);
     noLoop();
 }
@@ -69,18 +69,18 @@ function fliptile(pos, size) {
     /**
      * Check if floormap already has this hexagon
      */
-    let qrstr = "("+q+","+r+")";
-     if (floormap.has(qrstr)) {
-         // lookup the colour
-        col = 1-floormap.get(qrstr); //duh!
-        floormap.set(qrstr,col);
-     } else {
-         col = 0;
-     }
-     floormap.set(qrstr,col);
+    let qrstr = "(" + q + "," + r + ")";
+    if (floormap.has(qrstr)) {
+        // lookup the colour
+        col = 1 - floormap.get(qrstr); //duh!
+        floormap.set(qrstr, col);
+    } else {
+        col = 0;
+    }
+    floormap.set(qrstr, col);
 
-     fill(col*255);
-     drawHex(pos, size, col);
+    fill(col * 255);
+    drawHex(pos, size, col);
 }
 
 function parseRoute(str) {
@@ -89,7 +89,7 @@ function parseRoute(str) {
     return result;
 }
 
-function drawHex(pos, size, col=-1) {
+function drawHex(pos, size, col = -1) {
     // q - column
     // r - row
 
@@ -99,12 +99,11 @@ function drawHex(pos, size, col=-1) {
     if (col == -1) {
         noFill();
     } else {
-    fill(255*col);
+        fill(255 * col);
     }
-    
 
-    let x = q *           size * sqrt(3)/2;
-    let y = (2*r) * size * 3      /4;
+    let x = q * size * sqrt(3) / 2;
+    let y = (2 * r) * size * 3 / 4;
 
     //console.log(q, q % 2);
 
@@ -150,6 +149,6 @@ function move(dir, current) {
             r -= 1;
             break;
     }
-    nexttile = [q,r];
+    nexttile = [q, r];
     return nexttile;
 }
