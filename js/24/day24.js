@@ -1,5 +1,5 @@
 const DEBUG = true;
-let scale = 20;
+let scale = 10;
 let spacing;
 let current;
 let next;
@@ -116,7 +116,7 @@ function drawHex(pos, size, col=-1) {
     }
     endShape(CLOSE);
 
-    text(q + ", " + r, x - size*.6, y);
+    // text(q + ", " + r, x - size*.6, y);
 }
 
 function move(dir, current) {

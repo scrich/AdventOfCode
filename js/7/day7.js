@@ -4,13 +4,11 @@ const DEBUG = true;
 
 // https://adrianmejia.com/data-structures-for-beginners-trees-binary-search-tree-tutorial/
 
-let luggage = {};
+let luggage = {};   //object
 
 for (let phrase of input) {
     createBagNode(phrase);
 }
-
-
 
 function createBagNode(phrase) {
     // split the phrase up
