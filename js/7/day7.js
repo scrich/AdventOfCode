@@ -4,11 +4,36 @@ const DEBUG = false;
 
 // https://adrianmejia.com/data-structures-for-beginners-trees-binary-search-tree-tutorial/
 
+/** 
+ * Step 1
+ * Parse the input to create objects in luggage
+ */
 let luggage = {};   //object, or let's just use a Map
 
 for (let phrase of input) {
     createBagNode(phrase);
 }
+
+/**
+ * Step 2
+ * Loop through the bag definitions
+ * Find if descendents can eventally contain
+ * 'shiny gold'
+ * 
+ */
+
+let bagCount = 0;
+ for (const bag of Object.keys(luggage)) {
+     // check if bag contains 'color' 
+     // or if descendents do
+     if (luggage[bag].bagContains("shiny gold")) {
+         console.log("found bag" + bag);
+         bagCount ++;
+     }
+ }
+ console.log("bags that can be used: " + bagCount);
+
+/** #### FUNCTIONS #### */
 
 function createBagNode(phrase) {
     // split the phrase up
@@ -54,9 +79,6 @@ function cleanChildren(dirtyChildren) {
         DEBUG && console.log("small child>"+smallchild);
         arr.push(smallchild);
     }
-
-
-
     return arr;
 }
 
