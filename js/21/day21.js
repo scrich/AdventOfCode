@@ -85,7 +85,10 @@ console.log("ingredientNotAllergenCount " + ingredientNotAllergenCount);
 
 console.log("--- ingredients that could be each allergen");
 
-console.log(calculateAllergens());
+let allergenMap = calculateAllergens();
+
+// now we can calculate the allergens from the allergenMap
+// if we can be bothered
 
 // #### FUNCTIONS #### //
 
@@ -100,13 +103,7 @@ function calculateAllergens() {
             const allergen = arrAllAllergens[i];
             let ingredients = possibleIngredientsFor(allergen);
             console.log(allergen, ingredients);
-            if (ingredients.length == 1) {
-                console.log(ingredients[0] + " contains " + allergen);
-                // mapAllergenIngredient.set(allergen, ingredients[0]);
-                // arrAllAllergens.splice(i, 1);
-                // console.log(arrAllAllergens);
-                // break;
-            }
+            mapAllergenIngredient.set(allergen,ingredients);
         }
     //}
     return mapAllergenIngredient;
